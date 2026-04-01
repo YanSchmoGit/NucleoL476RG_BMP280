@@ -35,6 +35,7 @@ enable_language(C ASM)
 add_executable(${CMAKE_PROJECT_NAME}
         Core/Inc/BMP280.c
         Core/Inc/I2C.c
+        Core/Inc/LCDFunctions.c
 
 )
 
