@@ -45,8 +45,6 @@ int main(void)
   while (1)
   {
 
-
-
     GetSensorValues(BMP280_DEVICE_ADR, &valuePress, &valueTemp);
 
 
