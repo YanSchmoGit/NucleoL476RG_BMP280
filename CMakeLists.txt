@@ -36,6 +36,10 @@ add_executable(${CMAKE_PROJECT_NAME}
         Core/Inc/BMP280.c
         Core/Inc/I2C.c
         Core/Inc/LCDFunctions.c
+        Core/Inc/Init.c
+        Core/Inc/Init.h
+        Core/Inc/USART_Terminal.c
+        Core/Inc/USART_Terminal.h
 
 )
 
