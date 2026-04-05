@@ -26,7 +26,7 @@
 
 #define BMP280_DEVICE_ADR  (0x77)
 
-#define BAUDRATE (uint8_t) (115200)
+#define BAUDRATE (uint32_t) (115200)
 
 uint32_t valuePress;
 int32_t valueTemp;

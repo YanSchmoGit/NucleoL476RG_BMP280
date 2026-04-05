@@ -13,7 +13,7 @@ volatile char* outString = "";
 
 bool workInProgress = false;
 
-void InitUSART(uint8_t baudrate)
+void InitUSART(uint32_t baudrate)
 {
     RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
 

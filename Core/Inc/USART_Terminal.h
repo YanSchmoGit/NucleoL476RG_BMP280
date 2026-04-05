@@ -12,7 +12,7 @@
 #include <stdlib.h>
 
 void USART2_IRQHandler(void);
-void InitUSART(uint8_t baudrate);
+void InitUSART(uint32_t baudrate);
 
 void SendAString(char* string);
 void SendAInteger(int32_t valueInt);
