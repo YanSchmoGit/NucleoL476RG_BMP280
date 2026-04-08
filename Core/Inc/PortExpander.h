@@ -5,6 +5,9 @@
 #ifndef NUCLEOL476RG_BMP280_PORTEXPANDER_H
 #define NUCLEOL476RG_BMP280_PORTEXPANDER_H
 
+// Includes 
+
+#include "I2C.h"
 
 // MCP23017 registers
 
@@ -35,22 +38,19 @@
 
 typedef emum{
   PORT_A,
-    PORT_B
+  PORT_B
 }PortDef;
 
 
 // Init configuartion MCP23017
-int8_t PortExpanderInit(uint_8 devID); 
+int8_t PortExpanderInit(uint_8 devAdr); 
 
 // Set configuartion Port
-int8_t PortExpanderSetConfig(uint_8 devID, PortDef port);
+int8_t PortExpanderSetConfig(uint_8 devAdr, PortDef port);
 
 // Read / Write Port 
-int8_t PortExpanderReadInput(uint_8 devID, PortDef port);
-int8_t PortExpanderWriteOutput(uint_8 devID, PortDef port);
-
-
-
+int8_t PortExpanderReadInput(uint_8 devAdr, PortDef port, uint8_t value);
+int8_t PortExpanderWriteOutput(uint_8 devAdr, PortDef port, unit8_t value);
 
 
 #endif //NUCLEOL476RG_BMP280_PORTEXPANDER_H
