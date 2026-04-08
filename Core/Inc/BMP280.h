@@ -64,19 +64,20 @@
 
 // Calibration data
 
-typedef struct {
-	uint16_t 	dig_T1;
-	int16_t 	dig_T2;
-	int16_t 	dig_T3;
-	uint16_t 	dig_P1;
-	int16_t 	dig_P2;
-	int16_t 	dig_P3;
-	int16_t 	dig_P4;
-	int16_t 	dig_P5;
-	int16_t 	dig_P6;
-	int16_t 	dig_P7;
-	int16_t 	dig_P8;
-	int16_t 	dig_P9;
+typedef struct
+{
+    uint16_t dig_T1;
+    int16_t dig_T2;
+    int16_t dig_T3;
+    uint16_t dig_P1;
+    int16_t dig_P2;
+    int16_t dig_P3;
+    int16_t dig_P4;
+    int16_t dig_P5;
+    int16_t dig_P6;
+    int16_t dig_P7;
+    int16_t dig_P8;
+    int16_t dig_P9;
 } BMP280CalibrationData;
 
 extern BMP280CalibrationData BMP280CalibData;
@@ -88,11 +89,9 @@ typedef uint32_t BMP280_U32_t;
 typedef int64_t BMP280_S64_t;
 
 
-
 // Init data
 
 #define BMP280_INIT_DATA					(0x27)
-
 
 
 // ##### BMP280 Functions #####
@@ -114,10 +113,7 @@ BMP280_U32_t bmp280_compensate_P_int64(BMP280_S32_t adc_P);
 
 
 // Get sensor values
-int8_t GetSensorValues(uint8_t devAdr, uint32_t *valuePress, int32_t *valueTemp);
-
+int8_t GetSensorValues(uint8_t devAdr, uint32_t* valuePress, int32_t* valueTemp);
 
 
 #endif
-
-

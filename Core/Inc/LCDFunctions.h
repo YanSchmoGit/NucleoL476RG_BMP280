@@ -52,17 +52,15 @@
 #define LCDFunctionEntryModeSet 0b00000110
 
 
-
 // Functions
 
 
 // Enable BUS for GPIO
 
-void LCDEnableBus(GPIO_TypeDef *port);
+void LCDEnableBus(GPIO_TypeDef* port);
 
 
 void LCDEnableTimer();
-
 
 
 // Timer function
@@ -72,14 +70,13 @@ void LCDWaitTime(int value);
 
 // Setting up MCU Ports
 
-void LCDSetupPortPin(GPIO_TypeDef *port, int pinNumber);
+void LCDSetupPortPin(GPIO_TypeDef* port, int pinNumber);
 
 
-void LCDSetPin (GPIO_TypeDef *port, uint8_t pinNumber, bool pinValueState);
+void LCDSetPin(GPIO_TypeDef* port, uint8_t pinNumber, bool pinValueState);
 
 
 void LCDResetAllDataPins();
-
 
 
 void LCDSendByte(uint8_t byte);
@@ -91,10 +88,7 @@ void LCDSendByte(uint8_t byte);
 void LCDSendInstruction(uint8_t instruction);
 
 
-
-
 void LCDSetCursorLocation(uint8_t posX, uint8_t posY);
-
 
 
 void LCDSetup();
@@ -103,7 +97,7 @@ void LCDSetup();
 void LCDSendCharacter(char character);
 
 
-void LCDSendString(char *string);
+void LCDSendString(char* string);
 
 void LCDSendInteger(uint32_t valueInt);
 
@@ -111,7 +105,6 @@ void LCDSendInteger(uint32_t valueInt);
 	void LCDSendFloat(float_t valueFloat);
 
 */
-
 
 
 #endif

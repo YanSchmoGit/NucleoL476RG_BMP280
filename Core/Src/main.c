@@ -14,6 +14,7 @@
 #include "I2C.h"
 #include "BMP280.h"
 #include "USART_Terminal.h"
+#include "PortExpander.h"
 
 #define I2C_SCL_Pin 8
 #define I2C_SCL_Port GPIOB
@@ -22,13 +23,12 @@
 #define I2C_SDA_Port GPIOB
 
 #define BMP280_DEVICE_ADR  (0x77)
+#define PORTEXPANDER_DEVICE_ADR  (0x20)
 
 #define BAUDRATE (uint32_t) (115200)
 
 uint32_t valuePress;
 int32_t valueTemp;
-
-
 
 
 int main(void)
@@ -51,28 +51,44 @@ int main(void)
 
     InitUSART(BAUDRATE);
 
+    // Port expander
+
+    InitPortExpander(PORTEXPANDER_DEVICE_ADR);
+
+    PortExpanderSetConfig(PORTEXPANDER_DEVICE_ADR, PORT_A);
+    PortExpanderSetConfig(PORTEXPANDER_DEVICE_ADR, PORT_B);
+
 
 
     while (1)
     {
+        // BMP280 section
         GetSensorValues(BMP280_DEVICE_ADR, &valuePress, &valueTemp);
 
-/*
-        LCDSetCursorLocation(0, 0);
-        LCDSendInteger(valueTemp / 100);
-        LCDSendString(".");
-        LCDSendInteger((valueTemp / 10) % 10);
-        LCDSendString(" C");
-        LCDSetCursorLocation(0, 1);
+        /*
+                LCDSetCursorLocation(0, 0);
+                LCDSendInteger(valueTemp / 100);
+                LCDSendString(".");
+                LCDSendInteger((valueTemp / 10) % 10);
+                LCDSendString(" C");
+                LCDSetCursorLocation(0, 1);
 
-        LCDSendInteger(valuePress / 100);
-        LCDSendString(".");
-        LCDSendInteger((valuePress / 10) % 10);
-        LCDSendString(" hPa");
+                LCDSendInteger(valuePress / 100);
+                LCDSendString(".");
+                LCDSendInteger((valuePress / 10) % 10);
+                LCDSendString(" hPa");
 
-*/
-        SendAInteger(valueTemp);
+        */
+        //SendAInteger(valueTemp);
+
+        SendAInteger(1234);
+        // Test Area
+        //uint8_t testData = 0;
+
+        //ReadI2C(0x20,0x01,1,&testData);
+
+       //SendAInteger(testData);
+
+        PortExpanderWriteOutput(PORTEXPANDER_DEVICE_ADR, PORT_A, 0b00000001);
     }
 }
-
-
