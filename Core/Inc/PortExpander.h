@@ -5,6 +5,9 @@
 #ifndef NUCLEOL476RG_BMP280_PORTEXPANDER_H
 #define NUCLEOL476RG_BMP280_PORTEXPANDER_H
 
+
+// MCP23017 registers
+
 #define MCP23017_REGISTER_IODIRA        (0x00) // I/O DIRECTION REGISTER
 #define MCP23017_REGISTER_IODIRB        (0x00) // I/O DIRECTION REGISTER
 #define MCP23017_REGISTER_IPOLA         (0x00) // INPUT POLARITY REGISTER
@@ -28,16 +31,23 @@
 #define MCP23017_REGISTER_OLATA         (0x00) // OUTPUT LATCH REGISTER (OLAT)
 #define MCP23017_REGISTER_OLATB         (0x00) // OUTPUT LATCH REGISTER (OLAT)
 
+// Typedef MCP23017
+
+typedef emum{
+  PORT_A,
+    PORT_B
+}PortDef;
+
 
 // Init configuartion MCP23017
-int8_t PortExpanderInit(); 
+int8_t PortExpanderInit(uint_8 devID); 
 
 // Set configuartion Port
-int8_t PortExpanderSetConfig();
+int8_t PortExpanderSetConfig(uint_8 devID, PortDef port);
 
 // Read / Write Port 
-int8_t PortExpanderReadInput();
-int8_t PortExpanderWriteOutput();
+int8_t PortExpanderReadInput(uint_8 devID, PortDef port);
+int8_t PortExpanderWriteOutput(uint_8 devID, PortDef port);
 
 
 
