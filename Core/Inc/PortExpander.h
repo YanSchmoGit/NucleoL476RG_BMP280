@@ -29,4 +29,18 @@
 #define MCP23017_REGISTER_OLATB         (0x00) // OUTPUT LATCH REGISTER (OLAT)
 
 
+// Init configuartion MCP23017
+int8_t PortExpanderInit(); 
+
+// Set configuartion Port
+int8_t PortExpanderSetConfig();
+
+// Read / Write Port 
+int8_t PortExpanderReadInput();
+int8_t PortExpanderWriteOutput();
+
+
+
+
+
 #endif //NUCLEOL476RG_BMP280_PORTEXPANDER_H
