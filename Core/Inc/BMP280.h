@@ -1,7 +1,7 @@
 /*
  * Header file for BMP280 driver
  *
- * Settings for GPIOs will done in the BMP280 file as well
+ * Settings for GPIOs will be done in the BMP280 file as well
  *
  */
 
@@ -9,7 +9,7 @@
 #ifndef BMP280
 #define BMP280
 
-#include <stdlib.h>
+
 #include "I2C.h"
 
 
@@ -62,7 +62,7 @@
 #define BMP280_REGISTER_TEMP_XLSB			(0xFC)   // TEMP_XLSB
 
 
-// Calibation data
+// Calibration data
 
 typedef struct {
 	uint16_t 	dig_T1;

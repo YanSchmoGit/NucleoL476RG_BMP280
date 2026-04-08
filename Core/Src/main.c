@@ -7,10 +7,7 @@
  */
 
 #include <stm32l4xx.h>
-#include <system_stm32l4xx.h>
 #include <stdio.h>
-
-
 
 #include "Init.h"
 #include "LCDFunctions.h"
@@ -54,12 +51,7 @@ int main(void)
 
     InitUSART(BAUDRATE);
 
-    //SendAString("Hallo");
-    //SendAString("Hier koennte Ihre Werbung stehen!");
-    //GetSensorValues(BMP280_DEVICE_ADR, &valuePress, &valueTemp);
-    //int32_t test = 11111;
 
-    //SendAInteger(valueTemp);
 
     while (1)
     {

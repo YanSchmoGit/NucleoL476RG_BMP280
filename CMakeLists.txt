@@ -40,6 +40,8 @@ add_executable(${CMAKE_PROJECT_NAME}
         Core/Inc/Init.h
         Core/Inc/USART_Terminal.c
         Core/Inc/USART_Terminal.h
+        Core/Inc/PortExpander.c
+        Core/Inc/PortExpander.h
 
 )
 
