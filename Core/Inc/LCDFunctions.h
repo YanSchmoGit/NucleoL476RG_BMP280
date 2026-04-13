@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <stm32l476xx.h>
 
+#include "PortExpander.h"
 
 // Definitions for LCD
 
@@ -29,7 +30,7 @@
 #define LCDD5Pin 5
 #define LCDD5Port GPIOC
 
-#define LCDD6Pin 6
+#define LCDD6Pin 9
 #define LCDD6Port GPIOC
 
 #define LCDD7Pin 7
@@ -38,8 +39,10 @@
 #define LCDRSPin 8
 #define LCDRSPort GPIOC
 
-#define LCDEnablePin 9
+#define LCDEnablePin 6
 #define LCDEnablePort GPIOC
+
+#define UsePortExpander true
 
 #define WaitTimeLCDCom ((uint16_t)1000)
 
@@ -50,6 +53,8 @@
 #define LCDFunctionDisplayOnOffControl 0b00001110
 #define LCDFunctionFunctionSet 0b00111100
 #define LCDFunctionEntryModeSet 0b00000110
+
+#define PORTEXPANDER_DEVICE_ADR  (0x20)
 
 
 // Functions
@@ -76,10 +81,10 @@ void LCDSetupPortPin(GPIO_TypeDef* port, int pinNumber);
 void LCDSetPin(GPIO_TypeDef* port, uint8_t pinNumber, bool pinValueState);
 
 
-void LCDResetAllDataPins();
+void LCDResetAllDataPins(bool portExpander);
 
 
-void LCDSendByte(uint8_t byte);
+void LCDSendByte(uint8_t byte, bool portExpander);
 
 
 // LCD Functions

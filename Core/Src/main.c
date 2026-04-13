@@ -51,26 +51,25 @@ int main(void)
 
     InitUSART(BAUDRATE);
 
+    // Init LCD
+
+    LCDSetup();
+
     // Port expander
-
-    InitPortExpander(PORTEXPANDER_DEVICE_ADR);
-
-    PortExpanderSetConfig(PORTEXPANDER_DEVICE_ADR, PORT_A);
-    PortExpanderSetConfig(PORTEXPANDER_DEVICE_ADR, PORT_B);
-
-
 
     while (1)
     {
         // BMP280 section
         GetSensorValues(BMP280_DEVICE_ADR, &valuePress, &valueTemp);
 
-        /*
+
                 LCDSetCursorLocation(0, 0);
                 LCDSendInteger(valueTemp / 100);
                 LCDSendString(".");
                 LCDSendInteger((valueTemp / 10) % 10);
                 LCDSendString(" C");
+
+
                 LCDSetCursorLocation(0, 1);
 
                 LCDSendInteger(valuePress / 100);
@@ -78,10 +77,10 @@ int main(void)
                 LCDSendInteger((valuePress / 10) % 10);
                 LCDSendString(" hPa");
 
-        */
+
         //SendAInteger(valueTemp);
 
-        SendAInteger(1234);
+        //SendAInteger(1234);
         // Test Area
         //uint8_t testData = 0;
 
@@ -89,6 +88,6 @@ int main(void)
 
        //SendAInteger(testData);
 
-        PortExpanderWriteOutput(PORTEXPANDER_DEVICE_ADR, PORT_A, 0b00000001);
+
     }
 }

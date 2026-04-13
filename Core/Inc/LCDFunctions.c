@@ -46,7 +46,7 @@ void LCDWaitTime(int value)
     // value --> ms
     // Initialize timer
 
-    TIM6->PSC = (4 - 1);
+    TIM6->PSC = (16 - 1);
     TIM6->ARR = (value - 1);
 
     // Update flag active
@@ -91,29 +91,43 @@ void LCDSetPin(GPIO_TypeDef* port, uint8_t pinNumber, bool pinValueState)
     }
 }
 
-void LCDResetAllDataPins()
+void LCDResetAllDataPins(bool portExpander)
 {
-    LCDSetPin(LCDD0Port, LCDD0Pin, false);
-    LCDSetPin(LCDD1Port, LCDD1Pin, false);
-    LCDSetPin(LCDD2Port, LCDD2Pin, false);
-    LCDSetPin(LCDD3Port, LCDD3Pin, false);
-    LCDSetPin(LCDD4Port, LCDD4Pin, false);
-    LCDSetPin(LCDD5Port, LCDD5Pin, false);
-    LCDSetPin(LCDD6Port, LCDD6Pin, false);
-    LCDSetPin(LCDD7Port, LCDD7Pin, false);
+    if (portExpander)
+    {
+        PortExpanderWriteOutput(PORTEXPANDER_DEVICE_ADR, PORT_A, 0b00000000);
+    }
+    else
+    {
+        LCDSetPin(LCDD0Port, LCDD0Pin, false);
+        LCDSetPin(LCDD1Port, LCDD1Pin, false);
+        LCDSetPin(LCDD2Port, LCDD2Pin, false);
+        LCDSetPin(LCDD3Port, LCDD3Pin, false);
+        LCDSetPin(LCDD4Port, LCDD4Pin, false);
+        LCDSetPin(LCDD5Port, LCDD5Pin, false);
+        LCDSetPin(LCDD6Port, LCDD6Pin, false);
+        LCDSetPin(LCDD7Port, LCDD7Pin, false);
+    }
 }
 
 
-void LCDSendByte(uint8_t byte)
+void LCDSendByte(uint8_t byte, bool portExpander)
 {
-    LCDSetPin(LCDD0Port, LCDD0Pin, 0b00000001 & byte);
-    LCDSetPin(LCDD1Port, LCDD1Pin, 0b00000010 & byte);
-    LCDSetPin(LCDD2Port, LCDD2Pin, 0b00000100 & byte);
-    LCDSetPin(LCDD3Port, LCDD3Pin, 0b00001000 & byte);
-    LCDSetPin(LCDD4Port, LCDD4Pin, 0b00010000 & byte);
-    LCDSetPin(LCDD5Port, LCDD5Pin, 0b00100000 & byte);
-    LCDSetPin(LCDD6Port, LCDD6Pin, 0b01000000 & byte);
-    LCDSetPin(LCDD7Port, LCDD7Pin, 0b10000000 & byte);
+    if (portExpander)
+    {
+        PortExpanderWriteOutput(PORTEXPANDER_DEVICE_ADR, PORT_A, byte);
+    }
+    else
+    {
+        LCDSetPin(LCDD0Port, LCDD0Pin, 0b00000001 & byte);
+        LCDSetPin(LCDD1Port, LCDD1Pin, 0b00000010 & byte);
+        LCDSetPin(LCDD2Port, LCDD2Pin, 0b00000100 & byte);
+        LCDSetPin(LCDD3Port, LCDD3Pin, 0b00001000 & byte);
+        LCDSetPin(LCDD4Port, LCDD4Pin, 0b00010000 & byte);
+        LCDSetPin(LCDD5Port, LCDD5Pin, 0b00100000 & byte);
+        LCDSetPin(LCDD6Port, LCDD6Pin, 0b01000000 & byte);
+        LCDSetPin(LCDD7Port, LCDD7Pin, 0b10000000 & byte);
+    }
 }
 
 // LCD Functions
@@ -123,12 +137,12 @@ void LCDSendInstruction(uint8_t instruction)
 {
     LCDSetPin(LCDEnablePort, LCDEnablePin, true);
 
-    LCDSendByte(instruction);
+    LCDSendByte(instruction, UsePortExpander);
 
     LCDWaitTime(WaitTimeLCDCom);
     LCDSetPin(LCDEnablePort, LCDEnablePin, false);
     LCDWaitTime(WaitTimeLCDCom);
-    LCDResetAllDataPins();
+    LCDResetAllDataPins(UsePortExpander);
 }
 
 
@@ -154,7 +168,7 @@ void LCDSetCursorLocation(uint8_t posX, uint8_t posY)
     LCDWaitTime(WaitTimeLCDCom);
 
 
-    LCDSendByte(0b10000000 + position);
+    LCDSendByte(0b10000000 + position, UsePortExpander);
 
 
     LCDSetPin(LCDD7Port, LCDD7Pin, true);
@@ -162,12 +176,20 @@ void LCDSetCursorLocation(uint8_t posX, uint8_t posY)
     LCDWaitTime(WaitTimeLCDCom);
     LCDSetPin(LCDEnablePort, LCDEnablePin, false);
     LCDWaitTime(WaitTimeLCDCom);
-    LCDResetAllDataPins();
+    LCDResetAllDataPins(UsePortExpander);
 }
 
 
 void LCDSetup()
 {
+
+    // Port expander
+
+    InitPortExpander(PORTEXPANDER_DEVICE_ADR);
+
+    PortExpanderSetConfig(PORTEXPANDER_DEVICE_ADR, PORT_A);
+    PortExpanderSetConfig(PORTEXPANDER_DEVICE_ADR, PORT_B);
+
     // Setup GPIO
 
     LCDEnableBus(GPIOC);
@@ -201,13 +223,13 @@ void LCDSendCharacter(char character)
     LCDWaitTime(WaitTimeLCDCom);
     LCDSetPin(LCDEnablePort, LCDEnablePin, true);
 
-    LCDSendByte(character);
+    LCDSendByte(character, UsePortExpander);
 
     LCDWaitTime(WaitTimeLCDCom);
     LCDSetPin(LCDEnablePort, LCDEnablePin, false);
     LCDWaitTime(WaitTimeLCDCom);
     LCDSetPin(LCDRSPort, LCDRSPin, false);
-    LCDResetAllDataPins();
+    LCDResetAllDataPins(UsePortExpander);
 }
 
 void LCDSendString(char* string)
